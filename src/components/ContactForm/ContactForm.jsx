@@ -1,7 +1,23 @@
-import { Field, Form, Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import s from './ContactForm.module.css';
 import { nanoid } from 'nanoid';
 import { useId } from 'react';
+import * as Yup from 'yup';
+
+const FeedbackSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(3, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
+  number: Yup.string()
+    .matches(
+      /^\d{3}-\d{2}-\d{2}$/,
+      'Invalid format! Expected format: XXX-XX-XX'
+    )
+    .min(3, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
+});
 
 const ContactForm = ({ handleSubmit }) => {
   const initialValues = {
@@ -18,7 +34,11 @@ const ContactForm = ({ handleSubmit }) => {
   const numberFieldId = useId();
 
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      validationSchema={FeedbackSchema}
+    >
       <Form className={s.form}>
         <div className={s.label_wrapper}>
           <label className={s.label} htmlFor={nameFieldId}>
@@ -31,6 +51,7 @@ const ContactForm = ({ handleSubmit }) => {
             name="name"
             id={nameFieldId}
           />
+          <ErrorMessage name="name" component="span" />
         </div>
         <div className={s.label_wrapper}>
           <label className={s.label} htmlFor={numberFieldId}>
@@ -43,6 +64,7 @@ const ContactForm = ({ handleSubmit }) => {
             name="number"
             id={numberFieldId}
           />
+          <ErrorMessage name="number" component="span" />
         </div>
         <button className={s.btn_submite} type="submit">
           Add Contact
