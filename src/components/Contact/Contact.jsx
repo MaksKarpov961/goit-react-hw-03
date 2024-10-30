@@ -1,7 +1,7 @@
 import s from './Contact.module.css';
 import { GiNinjaHead } from 'react-icons/gi';
 import { FaPhoneAlt } from 'react-icons/fa';
-const Contact = ({ name, number }) => {
+const Contact = ({ id, name, number, deleteContact }) => {
   return (
     <>
       <div className={s.contact_data}>
@@ -14,7 +14,11 @@ const Contact = ({ name, number }) => {
           <p className={s.contact_number}>{number}</p>
         </div>
       </div>
-      <button className={s.btn_delete} type="button">
+      <button
+        onClick={() => deleteContact(id)}
+        className={s.btn_delete}
+        type="button"
+      >
         Delete
       </button>
     </>

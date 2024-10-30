@@ -8,7 +8,7 @@ function App() {
   const [contacts, setContacts] = useState(contactsData);
   const [filter, setFilter] = useState('');
 
-  const handleSubmit = (values, actions) => {
+  const addContact = (values, actions) => {
     setContacts(prevContacts => [...prevContacts, values]);
 
     actions.resetForm();
@@ -20,13 +20,19 @@ function App() {
       contact.number.includes(filter)
   );
 
+  const deleteContact = id => {
+    setContacts(prevContacts => {
+      return prevContacts.filter(contact => contact.id !== id);
+    });
+  };
+
   return (
     <section>
       <div className="container">
         <h1>Phonebook</h1>
-        <ContactForm handleSubmit={handleSubmit} />
+        <ContactForm addContact={addContact} />
         <SearchBox onFilter={setFilter} filter={filter} />
-        <ContactList contacts={filterContacts} />
+        <ContactList contacts={filterContacts} deleteContact={deleteContact} />
       </div>
     </section>
   );
