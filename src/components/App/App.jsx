@@ -8,6 +8,12 @@ function App() {
   const [contacts, setContacts] = useState(contactsData);
   const [filter, setFilter] = useState('');
 
+  const handleSubmit = (values, actions) => {
+    setContacts(prevContacts => [...prevContacts, values]);
+
+    actions.resetForm();
+  };
+
   const filterContacts = contacts.filter(
     contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase()) ||
@@ -18,7 +24,7 @@ function App() {
     <section>
       <div className="container">
         <h1>Phonebook</h1>
-        <ContactForm />
+        <ContactForm handleSubmit={handleSubmit} />
         <SearchBox onFilter={setFilter} filter={filter} />
         <ContactList contacts={filterContacts} />
       </div>

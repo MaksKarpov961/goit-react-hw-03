@@ -3,18 +3,22 @@ import s from './ContactForm.module.css';
 import { nanoid } from 'nanoid';
 import { useId } from 'react';
 
-const ContactForm = () => {
+const ContactForm = ({ handleSubmit }) => {
   const initialValues = {
-    id: nanoid(),
     name: '',
     number: '',
+  };
+
+  const onSubmit = (values, actions) => {
+    const newContact = { id: nanoid(), ...values };
+    handleSubmit(newContact, actions);
   };
 
   const nameFieldId = useId();
   const numberFieldId = useId();
 
   return (
-    <Formik initialValues={initialValues} onSubmit={() => {}}>
+    <Formik initialValues={initialValues} onSubmit={onSubmit}>
       <Form className={s.form}>
         <div className={s.label_wrapper}>
           <label className={s.label} htmlFor={nameFieldId}>
