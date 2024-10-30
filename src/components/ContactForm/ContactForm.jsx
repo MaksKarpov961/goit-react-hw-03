@@ -51,7 +51,11 @@ const ContactForm = ({ handleSubmit }) => {
             name="name"
             id={nameFieldId}
           />
-          <ErrorMessage name="name" component="span" />
+          <ErrorMessage
+            className={s.errprMessage}
+            name="name"
+            component="span"
+          />
         </div>
         <div className={s.label_wrapper}>
           <label className={s.label} htmlFor={numberFieldId}>
@@ -64,7 +68,11 @@ const ContactForm = ({ handleSubmit }) => {
             name="number"
             id={numberFieldId}
           />
-          <ErrorMessage name="number" component="span" />
+          <ErrorMessage
+            className={s.errprMessage}
+            name="number"
+            component="span"
+          />
         </div>
         <button className={s.btn_submite} type="submit">
           Add Contact

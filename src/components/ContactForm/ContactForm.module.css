@@ -58,3 +58,7 @@
   letter-spacing: 0.01em;
   color: black;
 }
+
+.errprMessage {
+  color: red;
+}
