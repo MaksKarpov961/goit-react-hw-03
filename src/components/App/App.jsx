@@ -2,10 +2,18 @@ import ContactForm from '../ContactForm/ContactForm';
 import ContactList from '../ContactList/ContactList';
 import SearchBox from '../SearchBox/SearchBox';
 import contactsData from '../../data/contacts.json';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
-  const [contacts, setContacts] = useState(contactsData);
+  const [contacts, setContacts] = useState(() => {
+    const savedContactsList = localStorage.getItem('contacts');
+    return savedContactsList ? JSON.parse(savedContactsList) : contactsData;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
+
   const [filter, setFilter] = useState('');
 
   const addContact = (values, actions) => {
