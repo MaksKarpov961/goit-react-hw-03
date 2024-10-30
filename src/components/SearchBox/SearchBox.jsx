@@ -1,7 +1,7 @@
 import { useId } from 'react';
 import s from './SearchBox.module.css';
 
-const SearchBox = () => {
+const SearchBox = ({ onFilter, filter }) => {
   const id = useId();
   return (
     <div className={s.input_wrapper}>
@@ -9,11 +9,13 @@ const SearchBox = () => {
         Find contacts by name
       </label>
       <input
-        placeholder="enter name"
+        placeholder="Enter name"
         className={s.input}
         type="text"
         id={id}
         name="find"
+        value={filter}
+        onChange={e => onFilter(e.target.value)}
       />
     </div>
   );
